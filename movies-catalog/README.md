@@ -64,6 +64,7 @@ movies-catalog/
 ## 🖥️ Screenshots
 
 > ![App Screenshot](./public/images/screenshot.png)
+> ![App Screenshot](./public/images/screenshot_2.png)
 
 ## 📝 License
 

@@ -63,8 +63,8 @@ movies-catalog/
 
 ## 🖥️ Screenshots
 
-> ![App Screenshot](./screenshot.png)
-> ![App Screenshot](./screenshot_2.png)
+> ![App Screenshot](screenshot.png)
+> ![App Screenshot](screenshot_2.png)
 
 ## 📝 License
 

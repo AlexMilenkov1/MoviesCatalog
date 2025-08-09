@@ -1,22 +1,34 @@
 import React, { useState, useEffect } from 'react'
 import Search from './components/search.jsx'
 import Spinner from './components/spinner.jsx'
+import MovieCard from './components/movieCard.jsx'
+import {useDebounce} from 'react-use'
 
-const API_URL = 'https://api.themoviedb.org/3'
-const API_KEY = import.meta.env.VITE_TMDB_API_KEY
+const API_URL = 'https://api.themoviedb.org/3';
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 
 const App = () => {
-  const [searchTerm, setSearchTerm] = useState('')
-  const [error, setError] = useState('')
-  const [movies, setMovies] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [searchTerm, setSearchTerm] = useState('');
+  const [error, setError] = useState('');
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [debounceSearchTerm, setDebounceSearchTerm] = useState('');
+  
+  useDebounce(() => {
+    setDebounceSearchTerm(searchTerm)}
+    ,700
+    ,[searchTerm]
+  )
 
-  const fetchMovies = async () => {
+  const fetchMovies = async (query = '') => {
     setLoading(true);
 
     try {
-      const endpoint = `${API_URL}/discover/movie?sort_by=popularity.desc&api_key=${API_KEY}`;
+      const endpoint = query
+        ? `${API_URL}/search/movie?query=${encodeURIComponent(query)}&api_key=${API_KEY}`
+        : `${API_URL}/discover/movie?sort_by=popularity.desc&api_key=${API_KEY}`
+
 
       const response = await fetch(endpoint);
 
@@ -45,8 +57,8 @@ const App = () => {
   }
 
   useEffect(() => {
-    fetchMovies();
-  }, [])
+    fetchMovies(debounceSearchTerm);
+  }, [debounceSearchTerm])
 
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
@@ -70,7 +82,7 @@ const App = () => {
           ) : (
             <ul>
               {movies.map((movie) => (
-                <p className='text-white' key={movie.id}>{movie.title}</p>
+                <MovieCard key={movie.id} movie={movie} />
               ))}
             </ul>
           )}

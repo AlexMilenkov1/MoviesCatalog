@@ -1,5 +1,7 @@
 # 🎬 Movies Catalog
 
+**Live demo:** [Click here to open the app](https://moviescatalog.onrender.com/)
+
 A modern Single Page Application (SPA) for browsing, searching, and discovering trending movies. Built with React, Vite, Tailwind CSS, and Appwrite.
 
 ## 🚀 Features
